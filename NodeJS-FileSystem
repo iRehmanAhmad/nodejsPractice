@@ -1,0 +1,65 @@
+// Importing file system module
+const fs = require("fs");
+
+
+//Writing File Synchronously Using writeFileSync()
+
+fs.writeFileSync("file.txt","This a new file.",{flag:'a'});
+fs.writeFileSync("file.txt", "Again inserrting a new line",{flag:'a'});
+
+// Reading File Asynchronously Using readFileSync()
+var data = fs.readFileSync("./file.txt", "utf-8");
+console.log(data);
+
+
+//Writing File Asynchrounsly Using writeFile, it will take a callback method as a parameter
+fs.writeFile("file1.txt","a new file",{flag:'a'}, (res, err)=>{
+    if(res){
+        return res;
+    }else{
+return err;
+    }
+
+});
+
+//Reading file asynchrounsly using readFile, it will take a callback method as a parameter 
+fs.readFile("./file1.txt","utf-8", (res, err)=>{
+    if(res){
+        console.log(res)
+    }else{
+        console.log(err);
+    }
+});
+
+// we can also import readFile and writeFile from 'fs' module as given below
+const {readFile, writeFile} = require("fs");
+// reading file and calling write file in call back method
+readFile("./file.txt","utf-8", (res, err)=>{
+    
+        if(res){
+         writeFile("./file.txt","\nWriting after reading",{flag:'a'}, ()=>{
+         });
+    }else{
+        console.log(err);
+    }
+});
+
+const {readFile, writeFile} = require("fs");
+// writing file asyncrounsly and then reading in callback 
+writeFile("./file.txt", "\nNow we are writing new data firstly", {flag: "a"}, (res, err)=>{
+    if(res){
+        readFile("./file.txt", (res, err)=>{
+            return res;
+        });
+    }
+    else{
+        console.log(err);
+    }
+});
+
+
+
+
+
+
+
