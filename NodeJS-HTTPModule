@@ -1,0 +1,27 @@
+// importing http module
+const http = require("http");
+// creating server, it will take a callback method with request, response objects
+const server = http.createServer((req, res)=>{
+    console.log("Request received");
+    //res.write("This is response");
+
+    // req.url is to handle the route
+    if(req.url==="/"){
+        // writeHead( ) is used to send status code
+        res.writeHead(200);
+        res.write("<h1>Home Page</h1>");
+    }
+    else if(req.url === "/about"){
+        res.writeHead(200);
+        res.write("<h1>About Us</h1>")
+    }
+    else{
+        res.writeHead(400);
+        res.write("Not accessible<br> <a href='localhost>Go to homepage</a>'");
+    }
+    // end method indicates that no more data will be sent back
+    res.end("This is response");
+
+});
+
+server.listen(4000);
