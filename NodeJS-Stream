@@ -1,0 +1,46 @@
+// There are four types of streams
+// 1. readable
+// 2. writeable
+// 3. duplex
+// 4. transform
+
+// "fs" module provides a method to work with streams. 
+const fs = require("fs");
+const stream = fs.createWriteStream("./streamfile.txt");
+
+stream.write("I am writing data using stream");
+stream.end(()=>{
+    console.log("Stream ended");
+});
+
+// creating readStream
+stream = fs.createReadStream("./streamfile.txt");
+//reading result from stream on "data" event
+stream.on("data", (result)=>{
+    //console.log(result);
+    console.log(result.length);
+    stream.pause();
+    setTimeout(() => {
+        stream.resume();
+        console.log(result);
+    }, 2000);
+});
+
+stream.on("error",(error)=>{
+    console.log("error happend", error.message);
+});
+
+// Writing data through response object in chunks with the help of stream
+const http = require("http");
+const fs = require("fs");
+// reading file synchronously
+const d = fs.readFileSync("./streamfile.txt", {"encoding": "utf-8"});
+// creating server and writing data to stream
+const server = http.createServer((req, res)=>{
+    res.write(d);
+    res.end();
+});
+server.listen(4000);
+server.on("error",(error)=>{
+    console.log(error.message);
+});
