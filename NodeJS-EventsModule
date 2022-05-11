@@ -1,0 +1,18 @@
+// Getting EventEmitter class from "events" module and creating its object
+const EventEmitter = require("events");
+const { env } = require("process");
+const event = new EventEmitter();
+
+// on method is used to create a custom event, it should be written before calling it using .emit(), 
+//it will take a callback method as parameter
+event.on("payMoney",(m)=>{
+    console.log("paying money", m)
+});
+
+// calling our custom event
+event.emit("payMoney", 500);
+
+event.on("error", ()=>{
+    console.log("There is an error");
+});
+event.emit("error");
