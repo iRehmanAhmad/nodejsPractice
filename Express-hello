@@ -1,0 +1,30 @@
+/* used nodemon.js and postman for this code */
+// importing express.js
+const express = require("express");
+// creating express' object
+const app = express()
+
+/* Some Mehtods
+app.get() --> to handle get request
+app.post() --> to handle post request
+app.put() --> to handle put request i.e. to update
+app.delete() --> to handle delete request
+*/
+
+// using app.get to handle get request 
+app.get("/",(req, res)=>{
+res.send("hello, Im using nodemon");
+});
+
+app.post("/", (req, res)=>{
+    res.send("this is to handle post post request")
+});
+
+// to handle a bad request
+app.all("*", (req, res)=>{
+    res.send("we are not providing this page");
+});
+
+// listening to a port
+app.listen(5000,()=>console.log("Listening Port"));
+
